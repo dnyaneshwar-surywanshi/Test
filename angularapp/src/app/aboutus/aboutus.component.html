@@ -1,0 +1,30 @@
+<p>aboutus works!</p>
+<div>
+    {{value | uppercase}}
+</div>
+<div >
+    Date with uppercase :- {{presentDate | date: 'fullDate' | uppercase}} <br>
+</div>
+
+<div>
+    My Observable :- {{myObservable | async}}
+</div>
+
+<div>
+    <h3>
+        Currency Pipe
+    </h3>
+
+    <p> {{price | currency:'USD'}}</p>
+    <p> {{price | currency:'INR'}}</p>
+
+</div>
+
+<div>
+    {{jsonData | json}}
+</div>
+
+<div>
+    <p>DigitCount Pipe</p>
+    <h1>{{digits | digitcount}}</h1>
+</div>

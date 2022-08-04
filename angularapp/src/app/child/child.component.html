@@ -1,0 +1,182 @@
+
+
+<!-- <div>
+    {{employeeName}}
+    
+
+</div>
+
+
+<div>
+    <button (click)="sendData()">Send Data</button>
+</div>
+
+<h4>NgClass</h4>
+<ul *ngFor="let person of people">
+  <li [ngClass]="{
+    'text-success':person.country === 'UK',
+    'text-primary':person.country === 'USA',
+    'text-danger':person.country === 'HK'
+  }">{{ person.name }} ({{ person.country }})
+  </li>
+</ul> -->
+
+<!-- <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-left rounded shadow py-5">
+<form (ngSubmit)="OnSubmit(myForm)" #myForm="ngForm" mustMatch="['password', 'confirmPassword']" novalidate >
+  <div >
+  <div class="form-group" >
+    <label for="username">Username *</label>
+    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" placeholder="Enter username" required>
+    <small *ngIf="username">User user name is : {{username}}</small>
+  </div>
+  <div class="form-group">
+    <label for="email">Email *</label>
+    <input type="email" class="form-control" id="email" email name="email" ngModel placeholder="Enter email" #email="ngModel" required>
+    <small class="text-danger" *ngIf="!email.valid && email.touched">Enter valid email</small>
+  </div>
+</div>
+  <div class="form-group">
+    <label for="course">Select Course</label>
+    <select class="form-control" id="course" name="course" [ngModel]="defaultValue">
+      <option value="Angular">Angular</option>
+      <option value="HTML">HTML</option>
+      <option value="JavaScript">JavaScript</option>
+
+    </select>
+  </div>
+  <div class="form-group">
+    <div *ngFor="let gender of genders" class="custom-control custom-radio">
+      <input  type="radio" id="{{gender.id}}" name="gender" class="custom-control-input" [ngModel]="defaultGender" value="{{gender.value}}">
+      <label class="custom-control-label" for="{{gender.id}}">{{gender.value}}</label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group ">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control"  placeholder="Enter password" #password="ngModel"  ngModel required minlength="6">
+        <div *ngIf="password.invalid" class="invalid-feedback">
+            <div *ngIf="password.errors.required">Password is required</div>
+            <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+    </div>
+    <div class="form-group ">
+        <label>Confirm Password</label>
+        <input type="password" name="confirmPassword" class="form-control" placeholder="Enter confirm password"  #confirmPassword="ngModel" ngModel required>
+        <div *ngIf=" confirmPassword.invalid" class="invalid-feedback">
+            <div *ngIf="confirmPassword.errors.required">Confirm Password is required</div>
+            <div *ngIf="confirmPassword.errors.mustMatch">Passwords must match</div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+  <label for="birthday">DOB:</label>
+  <input type="date"  [min]="minDate | date:'yyyy-MM-dd'"  >
+</div>
+  <button type="submit" [disabled]="!myForm.valid" class="btn btn-success">Submit</button>
+</form>
+</div>
+</div>
+  <div class="row justify-content-center mt-2" *ngIf="submitted">
+     <div class="col-md-6 rounded shadow py-4">
+        <h2>Form Data</h2>
+        <p>Username: <strong>{{formData.username}}</strong></p>
+        <p>Email: <strong>{{formData.email}}</strong></p>
+        <p>Course: <strong>{{formData.course}}</strong></p>
+        <p>Gender: <strong>{{formData.gender}}</strong></p>
+
+     </div>
+  </div>
+</div> -->
+
+
+ <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-left rounded shadow py-5">
+<form (ngSubmit)="OnSubmit()" [formGroup]="myReactiveForm">
+  <div formGroupName="userDetails" >
+  <div class="form-group" >
+    <label for="username">Username *</label>
+    <input type="text" class="form-control" id="username"  placeholder="Enter username" formControlName="username" >
+    <!-- <div *ngIf="submitted && myReactiveForm.username.errors" class="invalid-feedback">
+      <div *ngIf="myReactiveForm.username.errors.required">Username is required</div>
+  </div> -->
+  <small class="text-danger" *ngIf="!myReactiveForm.get('userDetails.username').valid && myReactiveForm.get('userDetails.username').touched">
+    <span *ngIf="myReactiveForm.get('userDetails.username').errors['required']">User name not valid</span>
+    <span *ngIf="myReactiveForm.get('userDetails.username').errors['nameIsNotAllowed']"> 
+      {{myReactiveForm.get('userDetails.username').value}} is not allowed</span>
+  </small>
+  </div>
+  <div class="form-group">
+    <label for="email">Email *</label>
+    <input type="email" class="form-control" id="email"   placeholder="Enter email" formControlName="email">
+    <small class="text-danger" *ngIf="!myReactiveForm.get('userDetails.email').valid && myReactiveForm.get('userDetails.email').touched">Please enter valid email</small>
+  </div>
+</div>
+  <div class="form-group">
+    <label for="course">Select Course</label>
+    <select class="form-control" id="course" formControlName="course" >
+      <option value="Angular">Angular</option>
+      <option value="HTML">HTML</option>
+      <option value="JavaScript">JavaScript</option>
+
+    </select>
+  </div>
+  <div class="form-group">
+    <div *ngFor="let gender of genders" class="custom-control custom-radio">
+      <input  type="radio" id="{{gender.id}}"  class="custom-control-input"  value="{{gender.value}}" formControlName="gender" >
+      <label class="custom-control-label" for="{{gender.id}}">{{gender.value}}</label>
+    </div>
+  </div>
+
+<div class="form-group">
+  <label for="birthday">DOB:</label>
+  <input type="date"  [min]="minDate | date:'yyyy-MM-dd'" formControlName="date" >
+</div>
+
+<div class="form-group">
+<input type="password" class="form-control" placeholder="Enter password" formControlName="password" (change)="onPasswordChange()"/>
+</div>
+<div class="form-group">
+<input type="password" class="form-control" placeholder="Enter confirm password" formControlName="confirm_password" (change)="onPasswordChange()" />
+</div>
+
+<span *ngIf="confirm_password.hasError('mismatch')" class="text-danger">Password do not match.</span>
+
+<div class="form-group" formArrayName="skills">
+  <label >Skills </label>
+  <!-- <ng-container *ngFor="let skill of myReactiveForm.get('skills').controls; index as i">
+  <input type="text" class="form-control mt-2"  formControlName="{{i}}"  placeholder="Add Skills" >
+  <button class="btn btn-danger btn-sm mt-4 btn-add" (click)="OnRemoveSkills()"> 
+    <i>-</i>Remove Skills 
+  </button>
+</ng-container> -->
+
+<button class="btn btn-light btn-sm mt-4 btn-add" (click)="OnAddSkills()"> 
+  <i>+</i>Add Skills 
+</button>
+</div>
+<p>Complete the form to enable button.</p>
+  <button type="submit"  class="btn btn-success">Submit</button>
+</form>
+</div>
+</div>
+  <div class="row justify-content-center mt-2" *ngIf="submitted">
+     <div class="col-md-6 rounded shadow py-4">
+        <h2>Form Data</h2>
+        <p>Username: <strong>{{myReactiveForm.get('userDetails.username').value}}</strong></p>
+        <!-- <p>Email: <strong>{{myReactiveForm.get('userDetails.email').value}}</strong></p> -->
+        <p>Email: {{email}}</p>
+        <p>Course: <strong>{{myReactiveForm.get('course').value}}</strong></p>
+        <p>Gender: <strong>{{myReactiveForm.get('gender').value}}</strong></p>
+
+     </div>
+  </div>
+</div> 
+
+<button (click)="OnMethod()">Subscribechild</button>
+
+<p>Name : {{data.name}}</p>
+<p>Name : {{data.email}}</p>

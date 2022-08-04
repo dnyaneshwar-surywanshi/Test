@@ -1,0 +1,86 @@
+
+
+
+
+<!-- 
+{{ print()}}
+
+{{employeeCount}}
+
+<img [src]="imageUrl" width="200" alt="">
+
+<div>
+    <button (click) = "clickMe($event)" value="codemind">Click Me !! </button>
+    
+</div>
+
+<div>
+    <input type="text" [(ngModel)] = "name">
+</div>
+
+<div>
+    {{name}}
+</div> -->
+
+<button (click)="sendData()">Send Data</button>
+<div>   
+
+  <b> {{employeeName}}</b> 
+</div>
+
+<div>
+    *****************************************************
+</div>
+
+<div >  
+    <div >  
+        {{title}}  
+    </div>   
+    <div >  
+        <div >  
+            <table class='table'>  
+                <thead >  
+                    <tr >  
+                        <th>Title</th>  
+                        <th>Director</th>  
+                        <th>Cast</th>  
+                        <th>Release Date</th>  
+                    </tr>  
+                </thead>  
+                <tbody>  
+                    <tr *ngFor="let movie of movies;" >  
+                        <td>{{movie.title}}</td>  
+                        <td>{{movie.director}}</td>  
+                        <td>{{movie.cast}}</td>  
+                        <td>{{movie.releaseDate}}</td>  
+                    </tr>  
+                </tbody>  
+            </table>  
+        </div>  
+    </div>  
+</div>
+
+<div>
+    Ng Switch 
+</div>
+
+<div class="container">
+    <div class="col-md-4">
+        <select class="form-control" (change)="getProductValue($event)">
+            <option value="Default">Select Product</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Mobile">Mobile</option>
+            <option value="TV">TV</option>
+            <option value="Washing Machine">Washing Machine</option>
+
+        </select>
+    </div>
+    <div class="col-md-12" [ngSwitch]="selectedProduct">
+        <h2 class="text-success" *ngSwitchDefault>Please select product</h2>
+        <h2 class="text-success" *ngSwitchCase="'Laptop'">Laptop</h2>
+        <h2 class="text-success" *ngSwitchCase="'Mobile'">Mobile</h2>
+        <h2 class="text-success" *ngSwitchCase="'TV'">TV</h2>
+        <h2 class="text-success" *ngSwitchCase="'Washing Machine'">Washing Machine</h2>
+
+    </div>
+</div>
