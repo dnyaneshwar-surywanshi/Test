@@ -51,6 +51,7 @@ export class UtilityService {
   
    getUsers() : Observable<any> {
      return this.httpClient.get(this.url);
+     // 10 users
    }
 
   getPost() : Observable<any> {

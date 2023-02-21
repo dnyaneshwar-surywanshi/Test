@@ -7,12 +7,27 @@ import { filter, map, mergeAll, mergeMap, take, takeLast, takeUntil, toArray } f
 import { getLocaleDateFormat } from '@angular/common';
 import { PostService } from './services/post.service';
 import { saveAs } from 'file-saver';
+import { EmployeeService } from './shared/employee.service';
+import { Product } from './product';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+  arrTest : any[] = [
+    {
+      name : {
+      'firstName': "Dnyanesh",
+      'lastname': "Surya"
+      }
+    },
+    {
+      salary: 2100000
+    }
+  ]
   
   title = 'Angular';
   CompExist: boolean = true;
@@ -21,14 +36,22 @@ export class AppComponent implements OnInit{
  sub1 : Subscription;
   products = {};
   post = {};
-
+ 
+  names = {};
   randomNames = ['Dnyanesh', 'CodeMind', 'Angular', 'HTML', 'JavaScript', 'TypeScript'];
   userName ;
 
   private ExampleObject : {name: string, email?: string} 
 
-  constructor(private _demoService: DemoService, private utilityService: UtilityService, private postservice: PostService) {
+  constructor(private empService: EmployeeService, private _demoService: DemoService, private utilityService: UtilityService, private postservice: PostService) {
+   console.log('nested object', this.arrTest);
+
+
    
+   this.names = this.arrTest[0]['name'];
+
+
+console.log('namessss', this.names);
   this.utilityService.userName.subscribe(res => {
     this.userName = res;
   })
@@ -39,9 +62,50 @@ export class AppComponent implements OnInit{
   }
 
   }
+  data;
+  name:string;
+  price:number;
+  product: Product = new Product();
+  handleData(v)
+  {
+ this.data = v.target.value;
+  }
+  updateProduct() {
+    //this.product = new Product();
+   this.product.name = this.name;
+   this.product.price = this.price;
+  }
+
+  public uid: number;
+  foods: string[] = [] ;
+  getdatafromchild(data){
+   this.foods.push(data);
+  }
+  
   ngOnInit(): void {
+   
+    this.empService.getPostDataFirebase().pipe(
+      map( responseData => {
+        const postArray = [] ;
+        for (const key in responseData) {
+          if (responseData.hasOwnProperty(key)) {
+           
+            postArray.push({...responseData[key], id : key});
+            
+          }
+        }
+        return postArray;
+      })
+    ).subscribe( posts => {
+      console.log('test firebase', posts);
+    })
 
+    // this.empService.getPostDataFirebase().subscribe(data=> {
+    //   const res = JSON.stringify(data);
 
+    //   console.log('test firebase', res)
+    //    // this.empService.listDesignation=data;
+    // });
     const jsonObject: object = {
       'City': [
         {
@@ -139,12 +203,23 @@ export class AppComponent implements OnInit{
 
  
 
-   const source = from(['Tech', 'Comedy', 'News']);
+   
+   }
 
-    source.pipe(
-      mergeMap(res => this.getData(res))
-    ).subscribe(res => {
-      console.log(res);
+
+
+   creatPost() 
+   {
+     this.empService.createPost().subscribe(responseData => {
+      console.log(responseData);
+     })
+   }
+
+
+   DeletePost() {
+     let id = "-NKi68jvD8qv9PB4Or5-" ;
+    this.empService.deletePostById(id).subscribe(res => {
+      console.log('test delete', res);
     })
    }
 

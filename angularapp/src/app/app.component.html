@@ -1,10 +1,27 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<!-- <button (click)="creatPost()">CreatePost</button>
+<button (click)="DeletePost()">Delete Post</button>
+<ul *ngFor="let s of foods">
+  <li>
+    {{s}}
+  </li>
+</ul>
 <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
   </h1>
-
+ 
   <div>CURD with Asp.Net Core and SQL</div>
+  <input type="text" (blur)="handleData($event)">
+  <p>Product Name : <input type="text" [(ngModel)]="name"></p>
+  <p>Product Price : <input type="text" [(ngModel)]="price"></p>
+  <button (click)="updateProduct()">Update product</button>
+  <app-ngclass [parentData]="data" [product]="product"></app-ngclass> -->
+  <!-- <select (change)="uid = sid.value;" #sid>
+<option  selected disabled>No value selected</option>
+<option [value]="id" *ngFor="let id of [1,2,3,4]">{{id}}</option>
+</select> -->
+  <!-- <app-ngstyle (foodevent)="getdatafromchild($event)" [parentData]="data"></app-ngstyle> -->
  <!-- <app-ngclass></app-ngclass> -->
   <!-- <app-logintest></app-logintest> -->
   <!-- <app-ngfor></app-ngfor>
@@ -55,16 +72,17 @@
 <!-- <app-crud></app-crud> -->
 <!-- <app-post-list></app-post-list> -->
 
-<!-- <header>
+<header>
    <nav>
       <ul class="nav nav-tabs">
          <li class="nav-item"> <a class="nav-link" routerLinkActive="active" routerLink="aboutus/">About Us</a></li>
          <li class="nav-item"> <a class="nav-link" routerLinkActive="active"  routerLink="contactus/">Contact Us</a></li>
          <li class="nav-item"> <a class="nav-link" routerLinkActive="active"  routerLink="product/">Product</a></li>
+         <li class="nav-item"> <a class="nav-link" routerLinkActive="active"  routerLink="auth/">Auth</a></li>
 
       </ul>
    </nav>
-</header> -->
+</header>
 
 <!-- <div class="page-area">
    <h2>Home</h2>
@@ -85,7 +103,9 @@
    </div>
 </div> -->
 
+<!-- <input type="text" #dp> -->
 
+<!-- <button (click)="show(dp.value)">Click me</button> -->
 <!-- <app-chnagedetection [data]="ExampleObject"></app-chnagedetection>
 
 <button (click)="change()">Change Name</button>
@@ -93,7 +113,9 @@
 <br>
 <button class="btn btn-success" (click)="changeObject()">Change Object</button> -->
 <div class="container">
-  <app-employee-details></app-employee-details>
+  <!-- <app-employee-details>
+    <h1></h1>
+  </app-employee-details> -->
   <!-- <app-comp2></app-comp2> -->
 
   <!-- <div class="row"> 
@@ -119,6 +141,8 @@
   </div> -->
  
   </div>
+
+  <app-democrud></app-democrud>
 <router-outlet></router-outlet>
 
 <!-- <div>
@@ -133,3 +157,15 @@
 </div> -->
 <!-- <h1>View Encapsulation in Angular</h1>
 <p>I am a paragraph in green</p> -->
+
+<!-- <h3>Teststsdhsdjfns,j</h3>
+{{names.firstName}}
+{{names.lastname}} -->
+
+<!-- <mat-slide-toggle>Toggle me!</mat-slide-toggle>
+
+<mat-slider min="1" max="100" step="1" value="50">
+  <input matSliderThumb>
+</mat-slider> -->
+
+<app-templatenew></app-templatenew>

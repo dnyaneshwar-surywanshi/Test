@@ -23,7 +23,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NewsService } from './news.service';
 import { DemoService } from './demo.service';
 import { NotificationService } from './notification.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { UtilityService } from './services/utility.service';
 import { CrudComponent } from './crud/crud.component';
 import { PostService } from './services/post.service';
@@ -43,16 +43,76 @@ import { EmployeeDetailsComponent } from './employee-details/employee-details.co
 import { EmployeeFormComponent } from './employee-details/employee-form/employee-form.component';
 import{DatePipe} from '@angular/common';
 import { TestdirectiveDirective } from './customDirective/testdirective.directive';
+import { TokenInterceptor } from './tokeninterceptor';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from 'src/environments/environment';
+import { AuthComponent } from './auth/auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { DpComponent } from './dp/dp.component';
+import { DemocrudComponent } from './democrud/democrud.component';
+import { PwdgenrateComponent } from './pwdgenrate/pwdgenrate.component';
+import { TemplatenewComponent } from './templatenew/templatenew.component';
+
+// angular material imports 
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button'
+import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatDialogModule } from "@angular/material/dialog";
+import {  MatInputModule } from "@angular/material/input";
+import {  MatListModule } from "@angular/material/list";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import {  MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSelectModule } from "@angular/material/select";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatSortModule } from "@angular/material/sort";
+import { MatTableModule } from "@angular/material/table";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
+   
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatTabsModule,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatStepperModule,
+    MatProgressBarModule
+    
   ],
   declarations: [
     AppComponent,
@@ -85,10 +145,24 @@ import { TestdirectiveDirective } from './customDirective/testdirective.directiv
     SerachpipePipe,
     EmployeeDetailsComponent,
     EmployeeFormComponent,
-    TestdirectiveDirective
+    TestdirectiveDirective,
+    AuthComponent,
+    LoadingSpinnerComponent,
+    DpComponent,
+    DemocrudComponent,
+    PwdgenrateComponent,
+    TemplatenewComponent
   ],
   
-  providers: [NewsService, DemoService, NotificationService, UtilityService, PostService, DatePipe],
+  providers: [NewsService, DemoService, NotificationService, UtilityService, PostService, DatePipe,
+  
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

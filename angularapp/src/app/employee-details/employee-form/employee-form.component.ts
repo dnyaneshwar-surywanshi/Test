@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { interval } from 'rxjs';
+import { NotificationService } from 'src/app/notification.service';
 import { Epmloyee } from 'src/app/shared/employee.model';
 import { EmployeeService } from 'src/app/shared/employee.service';
 
@@ -10,13 +12,15 @@ import { EmployeeService } from 'src/app/shared/employee.service';
   styleUrls: ['./employee-form.component.css']
  })
  export class EmployeeFormComponent implements OnInit {
-  constructor(public empService:EmployeeService, public toast:ToastrService) { }
+  constructor(public empService:EmployeeService, public toast:NotificationService) { }
   @ViewChild('checkbox1' , {static: false}) checkBox:ElementRef;
   isSlide:string='off';
   ngOnInit() {
-    this.empService.getDesignations().subscribe(data=> {
-        this.empService.listDesignation=data;
-    });
+   
+    this.empService.getDesignations().subscribe(res => {
+      this.empService.listDesignation = res;
+    })
+   // const brodcastvideo = interval(1000);
   }
   submit(form:NgForm)
   {
@@ -32,7 +36,7 @@ import { EmployeeService } from 'src/app/shared/employee.service';
   {  this.empService.saveEmployee().subscribe(d=> {
      this.resetForm(myform);
      this.refereshData();
-     this.toast.success('Sucess','Record Saved');
+     this.toast.showSuccess('Sucess','Record Saved');
     });
   }
   updateEployee(myform:NgForm)
@@ -40,7 +44,7 @@ import { EmployeeService } from 'src/app/shared/employee.service';
     this.empService.updateEmployee().subscribe(d=> {
       this.resetForm(myform);
       this.refereshData();
-      this.toast.warning('Sucess','Record Updated');
+     // this.toast.warning('Sucess','Record Updated');
     });
   }
   resetForm(myform:NgForm)

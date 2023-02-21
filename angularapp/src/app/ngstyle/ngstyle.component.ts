@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Attribute, Component, DoCheck, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-ngstyle',
@@ -16,20 +16,33 @@ OnInit,
  OnDestroy
   {
 
-  @Input() message : string;
+  @Input() userid : number;
+  @Input() inputprop: any;
+  @Output() foodevent: EventEmitter<string> = new EventEmitter<string>();
+  @Input() parentData: string;
+  
   colorVal = 'blue';
   color : 'color'
-  constructor() {
-    console.log('Constructor called');
+  constructor(@Attribute('inputprop') t: string) {
+    console.log('ljsjslkj',t);
    }
   
-
+   addtofood(value) {
+    this.foodevent.emit(value);
+   }
   ngOnChanges(changes: SimpleChanges): void {
    
      console.log('ngOnChanges called');
-     //console.log('Current Value', changes.message.currentValue);
-     //console.log('Previous Value', changes.message.previousValue);
-     console.log(changes);
+     for (const propname in changes) {
+       const prop = changes[propname];
+       const { previousValue, currentValue, firstChange} = prop;
+       console.log(`Prop name ${propname}`)
+       console.log(`Prev value ${previousValue}`); 
+       console.log(`Current value ${currentValue}`); 
+       console.log(`First chnage ${firstChange}`);
+       console.log("------------") 
+
+     }
   }
 
   ngOnInit() {
